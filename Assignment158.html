@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visitor Information Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        h2 {
+            text-align: center;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 10px;
+        }
+        input[type="text"], select {
+            width: 200px;
+            padding: 5px;
+        }
+        input[type="submit"], input[type="reset"] {
+            padding: 8px 15px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Visitor Information</h2>
+    <hr>
+
+    <form action="#" method="post">
+        <table>
+            <tr>
+                <td>Email Address:</td>
+                <td><input type="text" name="email" placeholder="Enter your email"></td>
+            </tr>
+
+
+            <tr>
+                <td>Your Interest (Web for Research or Purchase):</td>
+                <td><input type="text" name="interest" placeholder="Enter your interest"></td>
+            </tr>
+
+            
+            <tr>
+                <td>Occupation:</td>
+                <td>
+                    <select name="occupation">
+                        <option selected>Select One</option>
+                        <option>Student</option>
+                        <option>Teacher</option>
+                        <option>Engineer</option>
+                        <option>Business</option>
+                        <option>Other</option>
+                    </select>
+                </td>
+            </tr>
+
+            
+            <tr>
+                <td>Do you want us to send you junk email?</td>
+                <td>
+                    <input type="radio" name="junk" value="Absolutely"> Absolutely
+                    <input type="radio" name="junk" value="No Way Man"> No Way Man
+                </td>
+            </tr>
+
+         
+            <tr>
+                <td colspan="2" style="text-align:center;">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Reset">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>

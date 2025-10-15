@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Highlighted Table Example</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 50px auto;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        th {
+            background-color: #f2a365; 
+            color: white;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        
+        .decimal { background-color: #ffd966; }
+        .english { background-color: #a4c2f4; }
+        .spanish { background-color: #93c47d; }
+        .korean { background-color: #e06666; color: white; }
+        .binary { background-color: #6d9eeb; color: white; }
+    </style>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th class="decimal">Decimal</th>
+            <th class="english">English</th>
+            <th class="spanish">Spanish</th>
+            <th class="korean">Korean</th>
+            <th class="binary">Binary</th>
+        </tr>
+        <tr>
+            <td class="decimal">1</td>
+            <td class="english">One</td>
+            <td class="spanish">Uno</td>
+            <td class="korean">Henadoo</td>
+            <td class="binary">001</td>
+        </tr>
+        <tr>
+            <td class="decimal">2</td>
+            <td class="english">Two</td>
+            <td class="spanish">Dos</td>
+            <td class="korean">Sedna</td>
+            <td class="binary">0010</td>
+        </tr>
+        <tr>
+            <td class="decimal">3</td>
+            <td class="english">Three</td>
+            <td class="spanish">Tres</td>
+            <td class="korean">Desert</td>
+            <td class="binary">0011</td>
+        </tr>
+        <tr>
+            <td class="decimal">4</td>
+            <td class="english">Four</td>
+            <td class="spanish">Cuatro</td>
+            <td class="korean">[Korean 4]</td>
+            <td class="binary">0100</td>
+        </tr>
+        <tr>
+            <td class="decimal">5</td>
+            <td class="english">Five</td>
+            <td class="spanish">Cinco</td>
+            <td class="korean">[Korean 5]</td>
+            <td class="binary">0101</td>
+        </tr>
+    </table>
+
+</body>
+</html>
