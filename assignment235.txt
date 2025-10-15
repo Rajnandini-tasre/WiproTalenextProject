@@ -1,0 +1,39 @@
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
+import java.util.Scanner;
+
+public class CriteriaQueries {
+    public void displayCarsByColor(SessionFactory sessionFactory) {
+        try (Session session = sessionFactory.openSession();
+             Scanner scanner = new Scanner(System.in)) {
+
+            System.out.print("Enter a color to search for: ");
+            String colorToSearch = scanner.nextLine();
+            
+            // Get the CriteriaBuilder and create a CriteriaQuery
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<CarDetails> criteria = builder.createQuery(CarDetails.class);
+            Root<CarDetails> root = criteria.from(CarDetails.class);
+
+            // Add the restriction (the WHERE clause)
+            criteria.select(root).where(builder.equal(root.get("color"), colorToSearch));
+
+            // Execute the query
+            List<CarDetails> carList = session.createQuery(criteria).getResultList();
+
+            System.out.println("Cars with color '" + colorToSearch + "':");
+            if (carList.isEmpty()) {
+                System.out.println("No cars found with that color.");
+            } else {
+                for (CarDetails car : carList) {
+                    System.out.println("RegNo: " + car.getRegNo() + ", Model: " + car.getModel() +
+                                       ", Color: " + car.getColor() + ", Manufacturer: " + car.getManufacturer());
+                }
+            }
+        }
+    }
+}

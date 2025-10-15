@@ -1,0 +1,7 @@
+--Create an employee table with an auto-incremented ID
+CREATE TABLE EMPLOYEE (ID NUMBER(19,0) NOT NULL, NAME VARCHAR2(255), DESIGNATION VARCHAR2(255), SALARY NUMBER(19,2), PRIMARY KEY (ID));
+-- Hibernate would first query for the max ID: SELECT MAX(ID) FROM EMPLOYEE
+-- Then, it would insert the new record:
+INSERT INTO EMPLOYEE (ID, NAME, DESIGNATION, SALARY) VALUES (1, 'Employee 1', 'Developer', 50000.00);
+INSERT INTO EMPLOYEE (ID, NAME, DESIGNATION, SALARY) VALUES (2, 'Employee 2', 'Manager', 75000.00);
+-- ... and so on for 5 employees.

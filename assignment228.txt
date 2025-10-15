@@ -1,0 +1,31 @@
+public void updateFlowerPrice(int flowerId, double newPrice) {
+    Transaction transaction = null;
+    try (Session session = sessionFactory.openSession()) {
+        transaction = session.beginTransaction();
+
+        // Retrieve the flower object to be updated
+        Flower flower = session.get(Flower.class, flowerId);
+
+        if (flower != null) {
+            // Update the flower's price
+            flower.setPrice(newPrice);
+            System.out.println("Updated flower's price successfully.");
+
+            // Display the updated record
+            System.out.println("Updated record details:");
+            System.out.println("ID: " + flower.getId());
+            System.out.println("Name: " + flower.getName());
+            System.out.println("Color: " + flower.getColor());
+            System.out.println("New Price: " + flower.getPrice());
+        } else {
+            System.out.println("Error: No flower found with ID " + flowerId);
+        }
+
+        transaction.commit();
+    } catch (Exception e) {
+        if (transaction != null) {
+            transaction.rollback();
+        }
+        e.printStackTrace();
+    }
+}

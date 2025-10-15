@@ -1,0 +1,38 @@
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
+public class Passport {
+
+    @Id
+    private int passportId;
+    private String passportNumber;
+
+    @OneToOne(mappedBy = "passport")
+    private Employee employee;
+
+    // Getters and setters, and constructors
+    // ...
+}
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+
+@Entity
+public class Employee {
+
+    @Id
+    private int employeeId;
+    private String name;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "passport_id")
+    private Passport passport;
+
+    // Getters and setters, and constructors
+    // ...
+}
+

@@ -1,0 +1,24 @@
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import java.util.List;
+
+public class HQLQueries {
+    public void displayAllCars(SessionFactory sessionFactory) {
+        Session session = sessionFactory.openSession();
+        try {
+            // HQL query to retrieve all CarDetails objects
+            String hql = "from CarDetails";
+            Query<CarDetails> query = session.createQuery(hql, CarDetails.class);
+            List<CarDetails> carList = query.list();
+
+            System.out.println("Details of all cars:");
+            for (CarDetails car : carList) {
+                System.out.println("RegNo: " + car.getRegNo() + ", Model: " + car.getModel() +
+                                   ", Color: " + car.getColor() + ", Manufacturer: " + car.getManufacturer());
+            }
+        } finally {
+            session.close();
+        }
+    }
+}

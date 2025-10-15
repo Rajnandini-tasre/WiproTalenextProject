@@ -1,0 +1,23 @@
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+public class CriteriaQueries {
+    public void displayTotalCountOfCars(SessionFactory sessionFactory) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+            Root<CarDetails> root = criteria.from(CarDetails.class);
+
+            // Select the count of all records
+            criteria.select(builder.count(root));
+
+            // Execute the query and get the result
+            Long count = session.createQuery(criteria).getSingleResult();
+            
+            System.out.println("Total count of cars based on Reg No: " + count);
+        }
+    }
+}

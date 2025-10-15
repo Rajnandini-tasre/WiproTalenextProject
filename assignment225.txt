@@ -1,0 +1,4 @@
+CREATE SEQUENCE product_sequence START WITH 1 INCREMENT BY 1;
+INSERT INTO PRODUCT (ProductId, ProductName, Price) VALUES (product_sequence.NEXTVAL, 'Product 1', 99.99);
+INSERT INTO PRODUCT (ProductId, ProductName, Price) VALUES (product_sequence.NEXTVAL, 'Product 2', 45.50);
+-- ... and so on for 5 products.

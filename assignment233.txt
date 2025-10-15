@@ -1,0 +1,30 @@
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import java.util.Scanner;
+
+public class HQLQueries {
+    public void displayCarByRegNo(SessionFactory sessionFactory) {
+        try (Session session = sessionFactory.openSession();
+             Scanner scanner = new Scanner(System.in)) {
+
+            System.out.print("Enter a registration number: ");
+            String regNo = scanner.nextLine();
+
+            // HQL query with a named parameter ':regNo'
+            String hql = "from CarDetails where regNo = :regNo";
+            Query<CarDetails> query = session.createQuery(hql, CarDetails.class);
+            query.setParameter("regNo", regNo);
+
+            CarDetails car = query.uniqueResult();
+
+            if (car != null) {
+                System.out.println("Vehicle details found:");
+                System.out.println("RegNo: " + car.getRegNo() + ", Model: " + car.getModel() +
+                                   ", Color: " + car.getColor() + ", Manufacturer: " + car.getManufacturer());
+            } else {
+                System.out.println("No car found with registration number " + regNo);
+            }
+        }
+    }
+}

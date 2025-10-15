@@ -1,0 +1,4 @@
+-- Create a table with the Flower structure and insert a record
+
+CREATE TABLE FLOWER (FlowerID VARCHAR2(255), FlowerName VARCHAR2(255), Color VARCHAR2(255), Price NUMBER(19,2));
+INSERT INTO FLOWER (FlowerID, FlowerName, Color, Price) VALUES ('F001', 'Rose', 'Red', 12.50);

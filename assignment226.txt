@@ -1,0 +1,19 @@
+public void retrieveFlower() {
+    Session session = sessionFactory.openSession();
+    try {
+        // Use session.get() to retrieve the Flower object by its ID
+        Flower flower = session.get(Flower.class, 2);
+
+        if (flower != null) {
+            System.out.println("Retrieved Flower details:");
+            System.out.println("ID: " + flower.getId());
+            System.out.println("Name: " + flower.getName());
+            System.out.println("Color: " + flower.getColor());
+            System.out.println("Price: " + flower.getPrice());
+        } else {
+            System.out.println("No flower found with ID 2.");
+        }
+    } finally {
+        session.close();
+    }
+}

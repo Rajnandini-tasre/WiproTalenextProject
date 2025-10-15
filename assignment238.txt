@@ -1,0 +1,33 @@
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Car {
+
+    @Id
+    private int carId;
+    private String model;
+
+    // Getters and setters, and constructors
+    // ...
+}
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import java.util.List;
+import java.util.ArrayList;
+
+@Entity
+public class MultiCarOwner {
+
+    @Id
+    private int ownerId;
+    private String ownerName;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Car> cars = new ArrayList<>();
+
+    // Getters and setters, and constructors
+    // ...
+}

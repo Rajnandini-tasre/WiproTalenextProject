@@ -1,0 +1,23 @@
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.Column;
+import java.util.Map;
+
+@Entity
+public class Continent {
+
+    @Id
+    private String cname;
+
+    @ElementCollection
+    @CollectionTable(name = "continent_countries")
+    @MapKeyColumn(name = "country")
+    @Column(name = "capital")
+    private Map<String, String> countries;
+
+    // Getters and setters, and constructors
+    // ...
+}

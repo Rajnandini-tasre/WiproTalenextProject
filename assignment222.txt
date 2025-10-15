@@ -1,0 +1,8 @@
+ --Connect to Oracle using Scott login
+--View the table structure of EMP table (desc Emp)
+sql
+
+DESC EMP;
+
+--Insert a record into this table
+INSERT INTO EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO) VALUES (7839, 'KING', 'PRESIDENT', NULL, '17-NOV-81', 5000, NULL, 10);
