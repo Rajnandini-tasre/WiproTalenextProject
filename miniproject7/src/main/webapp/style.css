@@ -1,0 +1,177 @@
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 20px auto;
+}
+
+
+.promotion-banner {
+    background-color: #ee4c7c; 
+    background-image: linear-gradient(to right, #ee4c7c, #d8436e);
+    border-radius: 12px;
+    padding: 20px 40px;
+    margin-bottom: 25px;
+}
+
+.promo-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.promo-logo {
+    width: 80px; /* Adjust size as needed */
+    height: 80px;
+    margin-right: 25px;
+}
+
+.promo-text {
+    color: white;
+    text-align: center;
+}
+
+.promo-text h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.promo-text p {
+    margin: 5px 0 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+   
+    text-transform: capitalize;
+}
+
+
+.actions-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 25px;
+}
+
+.search-container {
+    display: flex;
+}
+
+.search-container input[type="text"] {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px 0 0 6px;
+    min-width: 300px;
+}
+
+.search-container button,
+.action-buttons button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button {
+    border-radius: 0 6px 6px 0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons button {
+    border-radius: 6px;
+}
+
+.action-buttons button:hover,
+.search-container button:hover {
+    background-color: #0056b3;
+}
+
+
+.book-grid {
+    display: grid;
+  
+    grid-template-columns: repeat(6, 1fr);
+    gap: 25px;
+}
+
+.book-item {
+    background-color: #ffffff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    /* Soft edge rectangle shape for the container */
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.book-item img {
+    max-width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 6px; 
+    margin-bottom: 15px;
+}
+
+.book-item .book-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+}
+
+.book-item .book-author {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 0;
+}
+
+@media (max-width: 1200px) {
+    .book-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .book-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .actions-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
