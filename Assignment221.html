@@ -1,0 +1,144 @@
+Develop a web application to dynamically check for availability of email ID for registration. If email ID does not exist in a database, available, else, not available, should be displaced next to the email text box. If the email ID pattern does not confirm to an email ID display invalid email, perform the check when the text box loses the focus. Consider the following feed for the profile table, email, password, name, date of birth, gender, city, mobile, etc.
+
+
+1.index.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+    <script>
+        function checkEmail() {
+            const emailInput = document.getElementById("email");
+            const emailStatus = document.getElementById("emailStatus");
+            const email = emailInput.value.trim();
+
+            // Simple email pattern validation
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+            if (!emailPattern.test(email)) {
+                emailStatus.innerText = "Invalid Email";
+                emailStatus.style.color = "red";
+                return;
+            }
+
+            // AJAX request to check email availability
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    emailStatus.innerText = xhr.responseText;
+                    emailStatus.style.color = xhr.responseText === "Available" ? "green" : "red";
+                }
+            };
+            xhr.open("GET", "CheckEmailServlet?email=" + encodeURIComponent(email), true);
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <h2>Registration Form</h2>
+    <form action="RegisterServlet" method="post">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" onblur="checkEmail()" required>
+        <span id="emailStatus"></span><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob"><br><br>
+
+        <label>Gender:</label>
+        <input type="radio" name="gender" value="Male"> Male
+        <input type="radio" name="gender" value="Female"> Female<br><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city"><br><br>
+
+        <label for="mobile">Mobile:</label>
+        <input type="text" id="mobile" name="mobile"><br><br>
+
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>
+
+
+2.checkEmailServlet.java
+
+
+package com.example.servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/CheckEmailServlet")
+public class CheckEmailServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String email = request.getParameter("email");
+        response.setContentType("text/plain");
+        PrintWriter out = response.getWriter();
+
+        // Database connection details
+        String jdbcURL = "jdbc:mysql://localhost:3306/yourdb";
+        String dbUser = "root";
+        String dbPassword = "password";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(jdbcURL, dbUser, dbPassword);
+            String sql = "SELECT * FROM profile WHERE email = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                out.print("Not Available");
+            } else {
+                out.print("Available");
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.print("Error");
+        }
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
+}
+
+
+3.DataBase
+
+CREATE TABLE profile (
+    email VARCHAR(100) PRIMARY KEY,
+    password VARCHAR(100),
+    name VARCHAR(100),
+    dob DATE,
+    gender VARCHAR(10),
+    city VARCHAR(50),
+    mobile VARCHAR(15)
+);
+

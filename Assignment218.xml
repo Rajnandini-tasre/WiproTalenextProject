@@ -1,0 +1,29 @@
+Create a namespace for the following set of tags Student, Root Text, Student ID, Theory Marks, Practical Marks, Total Marks, Grade, Student, Root Text, Student ID, Name, DoB, Gender, Course.
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:Root xmlns:ns="http://www.example.com/student">
+    <ns:Student>
+        <ns:StudentID>101</ns:StudentID>
+        <ns:Name>Rahul</ns:Name>
+        <ns:DoB>2007-05-15</ns:DoB>
+        <ns:Gender>Male</ns:Gender>
+        <ns:Course>C Programming</ns:Course>
+        <ns:TheoryMarks>85</ns:TheoryMarks>
+        <ns:PracticalMarks>90</ns:PracticalMarks>
+        <ns:TotalMarks>175</ns:TotalMarks>
+        <ns:Grade>A</ns:Grade>
+    </ns:Student>
+
+    <ns:Student>
+        <ns:StudentID>102</ns:StudentID>
+        <ns:Name>Manju</ns:Name>
+        <ns:DoB>2006-11-23</ns:DoB>
+        <ns:Gender>Female</ns:Gender>
+        <ns:Course>Java</ns:Course>
+        <ns:TheoryMarks>78</ns:TheoryMarks>
+        <ns:PracticalMarks>82</ns:PracticalMarks>
+        <ns:TotalMarks>160</ns:TotalMarks>
+        <ns:Grade>B</ns:Grade>
+    </ns:Student>
+</ns:Root>

@@ -1,0 +1,18 @@
+Develop DTD for the below given XML document ManjuWipro9988776655
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Student>
+    <Name>Manju</Name>
+    <Company>Wipro</Company>
+    <ContactNumber>9988776655</ContactNumber>
+</Student>
+
+
+
+<!DOCTYPE Student [
+    <!ELEMENT Student (Name, Company, ContactNumber)>
+    <!ELEMENT Name (#PCDATA)>
+    <!ELEMENT Company (#PCDATA)>
+    <!ELEMENT ContactNumber (#PCDATA)>
+]>

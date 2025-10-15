@@ -1,0 +1,150 @@
+Create a login page web application by using SpringBoot MVC and if the user name is and the password is wipro123 then direct to success page else redirect to failure page.
+
+1.pom.xml
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>springboot-login-mvc</artifactId>
+    <version>1.0.0</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.3</version>
+    </parent>
+
+    <dependencies>
+        <!-- Spring Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Thymeleaf for HTML views -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+</project>
+
+2.SpringbootLoginMvcApplication
+
+package com.example.login;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringbootLoginMvcApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootLoginMvcApplication.class, args);
+    }
+}
+
+3.User.java
+
+package com.example.login.model;
+
+public class User {
+    private String username;
+    private String password;
+
+    // Getters and Setters
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+
+
+4.LoginController.java
+
+package com.example.login.controller;
+
+import com.example.login.model.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+public class LoginController {
+
+    @GetMapping("/")
+    public String showLoginPage(Model model) {
+        model.addAttribute("user", new User());
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute("user") User user, Model model) {
+        if ("admin".equals(user.getUsername()) && "wipro123".equals(user.getPassword())) {
+            model.addAttribute("username", user.getUsername());
+            return "success";
+        } else {
+            return "failure";
+        }
+    }
+}
+
+5.login.html
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login Page</title>
+</head>
+<body style="text-align:center; font-family:Arial;">
+    <h2>Login Form</h2>
+    <form th:action="@{/login}" method="post" th:object="${user}">
+        <label>Username:</label>
+        <input type="text" th:field="*{username}" required><br><br>
+
+        <label>Password:</label>
+        <input type="password" th:field="*{password}" required><br><br>
+
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
+
+6.success.html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login Success</title>
+</head>
+<body style="text-align:center; color:green; font-family:Arial;">
+    <h2>Welcome, <span th:text="${username}"></span>!</h2>
+    <h3>Login Successful 🎉</h3>
+</body>
+</html>
+7.failure.html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login Failed</title>
+</head>
+<body style="text-align:center; color:red; font-family:Arial;">
+    <h2>Invalid Username or Password!</h2>
+    <a href="/">Try Again</a>
+</body>
+</html>

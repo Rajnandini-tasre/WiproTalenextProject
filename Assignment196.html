@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phone Number Validation</title>
+    <script>
+        function validatePhoneNumber() {
+            const phone = document.getElementById("phoneNumber").value.trim();
+            const phonePattern = /^\d{3}\.\d{4}$/; // Matches xxx.xxxx format
+
+            if (phone === "") {
+                alert("Phone number must be entered.");
+                document.getElementById("phoneNumber").focus();
+                return false;
+            }
+
+            if (!phonePattern.test(phone)) {
+                alert("Phone number must be in the format xxx.xxxx.");
+                document.getElementById("phoneNumber").focus();
+                return false;
+            }
+
+            return true; // Validation passed
+        }
+
+        function onSubmitEventHandler(event) {
+            if (!validatePhoneNumber()) {
+                event.preventDefault(); // Stop form submission
+            }
+        }
+
+        window.onload = function() {
+            const form = document.getElementById("phoneForm");
+            form.addEventListener("submit", onSubmitEventHandler);
+        };
+    </script>
+</head>
+<body>
+
+<h2>Phone Number Form</h2>
+
+<form id="phoneForm" action="#" method="post">
+    <label for="phoneNumber">Phone Number:</label><br>
+    <input type="text" id="phoneNumber" name="phoneNumber" placeholder="xxx.xxxx"><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

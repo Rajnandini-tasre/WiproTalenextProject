@@ -1,0 +1,57 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    // Maximum number for factorial table
+    int maxNumber = 10;
+
+    // Method to calculate factorial
+    long factorial(int n) {
+        long fact = 1;
+        for (int i = 2; i <= n; i++) {
+            fact *= i;
+        }
+        return fact;
+    }
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Factorial Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Number and Factorial Table</h2>
+
+<table>
+    <tr>
+        <th>Number</th>
+        <th>Factorial</th>
+    </tr>
+    <%
+        for (int i = 0; i <= maxNumber; i++) {
+    %>
+    <tr>
+        <td><%= i %></td>
+        <td><%= factorial(i) %></td>
+    </tr>
+    <%
+        }
+    %>
+</table>
+
+</body>
+</html>

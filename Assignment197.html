@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Validation</title>
+    <script>
+        function validatePassword() {
+            const password = document.getElementById("password").value.trim();
+            const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+
+            if (password === "") {
+                alert("Password must be entered.");
+                document.getElementById("password").focus();
+                return false;
+            }
+
+            if (!pattern.test(password)) {
+                alert("Password must be 6-20 characters and include at least one numeric digit, one uppercase, and one lowercase letter.");
+                document.getElementById("password").focus();
+                return false;
+            }
+
+            return true; // Password is valid
+        }
+
+        function onSubmitEventHandler(event) {
+            if (!validatePassword()) {
+                event.preventDefault(); // Stop form submission
+            }
+        }
+
+        window.onload = function() {
+            const form = document.getElementById("passwordForm");
+            form.addEventListener("submit", onSubmitEventHandler);
+        };
+    </script>
+</head>
+<body>
+
+<h2>Password Form</h2>
+
+<form id="passwordForm" action="#" method="post">
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

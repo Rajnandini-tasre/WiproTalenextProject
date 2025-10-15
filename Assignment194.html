@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Clock</title>
+    <script>
+        function updateTime() {
+            const now = new Date();
+            let hours = String(now.getHours()).padStart(2, '0');
+            let minutes = String(now.getMinutes()).padStart(2, '0');
+            let seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById("timeBox").value = hours + ":" + minutes + ":" + seconds;
+        }
+
+        setInterval(updateTime, 1000); // Update every second
+        window.onload = updateTime;     // Initialize immediately
+    </script>
+</head>
+<body>
+
+<h2>Dynamic Time Display</h2>
+<input type="text" id="timeBox" readonly>
+
+</body>
+</html>

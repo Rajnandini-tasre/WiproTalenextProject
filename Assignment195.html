@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation Example</title>
+    <script>
+        function validateForm() {
+            const memberNumber = document.getElementById("memberNumber");
+            const password = document.getElementById("password");
+
+            if (memberNumber.value.trim() === "") {
+                alert("Member Number must be entered.");
+                memberNumber.focus();
+                return false;
+            }
+
+            if (password.value.trim() === "") {
+                alert("Password must be entered.");
+                password.focus();
+                return false;
+            }
+
+            if (password.value.length > 4) {
+                alert("Password must be no more than 4 characters.");
+                password.focus();
+                return false;
+            }
+
+            return true; // Form is valid
+        }
+
+        function onSubmitEventHandler(event) {
+            if (!validateForm()) {
+                event.preventDefault(); // Stop form submission if validation fails
+            }
+        }
+
+        window.onload = function() {
+            const form = document.getElementById("loginForm");
+            form.addEventListener("submit", onSubmitEventHandler);
+        };
+    </script>
+</head>
+<body>
+
+<h2>Member Login Form</h2>
+
+<form id="loginForm" action="#" method="post">
+    <label for="memberNumber">Member Number:</label><br>
+    <input type="text" id="memberNumber" name="memberNumber"><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+
+    <input type="submit" value="Login">
+</form>
+
+</body>
+</html>

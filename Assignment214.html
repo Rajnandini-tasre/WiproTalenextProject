@@ -1,0 +1,118 @@
+1.EmployeeBean.java
+ 
+
+package com.example.bean;
+
+import java.io.Serializable;
+
+public class EmployeeBean implements Serializable {
+    private String employeeName;
+    private int employeeId;
+
+    // Default constructor
+    public EmployeeBean() {}
+
+    // Getter and Setter for employeeName
+    public String getEmployeeName() {
+        return employeeName;
+    }
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    // Getter and Setter for employeeId
+    public int getEmployeeId() {
+        return employeeId;
+    }
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+}
+
+
+2.EmployeeForm.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Form</title>
+</head>
+<body>
+    <h2>Enter Employee Details</h2>
+    <form action="EmployeeServlet" method="post">
+        <label for="employeeName">Employee Name:</label>
+        <input type="text" name="employeeName" id="employeeName" required><br><br>
+        
+        <label for="employeeId">Employee ID:</label>
+        <input type="number" name="employeeId" id="employeeId" required><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+
+3.EmployeeServlet.java
+ 
+
+package com.example.servlet;
+
+import com.example.bean.EmployeeBean;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/EmployeeServlet")
+public class EmployeeServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // Create EmployeeBean object
+        EmployeeBean employee = new EmployeeBean();
+
+        // Automatically populate bean properties from request parameters
+        employee.setEmployeeName(request.getParameter("employeeName"));
+        employee.setEmployeeId(Integer.parseInt(request.getParameter("employeeId")));
+
+        // Set bean as request attribute
+        request.setAttribute("employee", employee);
+
+        // Forward to JSP to display details
+        request.getRequestDispatcher("displayEmployee.jsp").forward(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
+}
+
+
+4.displayEmployee.jsp
+
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.bean.EmployeeBean" %>
+<%
+    EmployeeBean employee = (EmployeeBean) request.getAttribute("employee");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Details</title>
+</head>
+<body>
+    <h2>Employee Details</h2>
+    <p><strong>Employee Name:</strong> <%= employee.getEmployeeName() %></p>
+    <p><strong>Employee ID:</strong> <%= employee.getEmployeeId() %></p>
+</body>
+</html>
+
+
+

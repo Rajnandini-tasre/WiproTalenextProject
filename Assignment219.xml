@@ -1,0 +1,107 @@
+Develop a web application to display a list of important cities of different states displayed in a drop-down list on HTML page. On selecting a state, the list of cities of that particular state should be displayed in a tableau format, thus below the drop-down list. Create a static list in the servlet for the application.
+
+1.index.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>State and City Selection</title>
+</head>
+<body>
+    <h2>Select a State to See Important Cities</h2>
+    <form action="CityServlet" method="post">
+        <label for="state">Select State:</label>
+        <select name="state" id="state" required>
+            <option value="">--Select State--</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="TamilNadu">Tamil Nadu</option>
+        </select>
+        <input type="submit" value="Show Cities">
+    </form>
+</body>
+</html>
+
+
+2.cityServlet.java
+
+
+package com.example.servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/CityServlet")
+public class CityServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    // Static list of states and their important cities
+    private static HashMap<String, List<String>> stateCities = new HashMap<>();
+
+    static {
+        List<String> maharashtraCities = new ArrayList<>();
+        maharashtraCities.add("Mumbai");
+        maharashtraCities.add("Pune");
+        maharashtraCities.add("Nagpur");
+
+        List<String> karnatakaCities = new ArrayList<>();
+        karnatakaCities.add("Bengaluru");
+        karnatakaCities.add("Mysore");
+        karnatakaCities.add("Mangalore");
+
+        List<String> tamilNaduCities = new ArrayList<>();
+        tamilNaduCities.add("Chennai");
+        tamilNaduCities.add("Coimbatore");
+        tamilNaduCities.add("Madurai");
+
+        stateCities.put("Maharashtra", maharashtraCities);
+        stateCities.put("Karnataka", karnatakaCities);
+        stateCities.put("TamilNadu", tamilNaduCities);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String state = request.getParameter("state");
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        out.println("<html><head><title>Cities of " + state + "</title></head><body>");
+        out.println("<h2>Important Cities of " + state + "</h2>");
+
+        List<String> cities = stateCities.get(state);
+
+        if (cities == null || cities.isEmpty()) {
+            out.println("<p>No cities available for the selected state.</p>");
+        } else {
+            out.println("<table border='1' cellpadding='10'>");
+            out.println("<tr><th>City Number</th><th>City Name</th></tr>");
+            for (int i = 0; i < cities.size(); i++) {
+                out.println("<tr><td>" + (i + 1) + "</td><td>" + cities.get(i) + "</td></tr>");
+            }
+            out.println("</table>");
+        }
+
+        out.println("<br><a href='index.html'>Back</a>");
+        out.println("</body></html>");
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
+}
+
+
+
+3.

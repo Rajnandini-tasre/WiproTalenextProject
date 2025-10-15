@@ -1,0 +1,103 @@
+1. Index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Operation Input</title>
+</head>
+<body>
+    <h2>Enter a Number</h2>
+    <form action="OperationServlet" method="post">
+        <label for="operation">Number:</label>
+        <input type="number" name="operation" id="operation" required>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+
+2.Servlet.java
+
+
+package com.example.servlet;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/OperationServlet")
+public class OperationServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String opStr = request.getParameter("operation");
+        int value;
+
+        try {
+            value = Integer.parseInt(opStr);
+        } catch (NumberFormatException e) {
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+            return;
+        }
+
+        if (value < 10) {
+            request.getRequestDispatcher("page1.jsp").forward(request, response);
+        } else if (value >= 10 && value < 19) {
+            request.getRequestDispatcher("page2.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+        }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
+}
+
+
+3.page1.jsp
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page 1</title>
+</head>
+<body>
+    <h2>You entered a number less than 10. Welcome to Page 1!</h2>
+</body>
+</html>
+
+
+4.page2.jsp
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page 2</title>
+</head>
+<body>
+    <h2>You entered a number between 10 and 18. Welcome to Page 2!</h2>
+</body>
+</html>
+
+
+5. errorpage.jsp
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error Page</title>
+</head>
+<body>
+    <h2>Error: The number is 19 or greater, or input is invalid.</h2>
+</body>
+</html>
+
+
