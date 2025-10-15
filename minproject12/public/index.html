@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frameset Webpage</title>
+</head>
+<frameset rows="15%,*,10%" border="1">
+    <!-- Header -->
+    <frame src="header.html" name="headerFrame" noresize="noresize">
+
+    <!-- Main body divided into 3 columns -->
+    <frameset cols="20%,60%,20%">
+        <!-- Left logo area -->
+        <frame src="logo.html" name="logoFrame" noresize="noresize">
+
+        <!-- Menu in center -->
+        <frame src="menu.html" name="menuFrame">
+
+        <!-- Login on right -->
+        <frame src="login.html" name="loginFrame">
+    </frameset>
+
+    <!-- Footer -->
+    <frame src="footer.html" name="footerFrame" noresize="noresize">
+</frameset>
+
+<noframes>
+    <body>
+        <p>This page requires a browser that supports frames.</p>
+    </body>
+</noframes>
+</html>
