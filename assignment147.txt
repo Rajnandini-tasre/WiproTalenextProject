@@ -1,0 +1,74 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class assignment147 {
+    // JDBC URL for Oracle database
+    static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:ORCL";
+
+    // Database credentials
+    static final String USER = "hr";
+    static final String PASS = "hr";
+
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            System.out.println("Connecting to database...");
+            // Open a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            System.out.println("Creating statement...");
+            stmt = conn.createStatement();
+
+            // SQL query to select specific columns with a WHERE clause
+            String sql = "SELECT ename, job, sal, comm FROM emp WHERE sal > 1000 AND sal < 2000";
+            rs = stmt.executeQuery(sql);
+
+            // Print the header for the output
+            System.out.println("\nEmployee Details:");
+            System.out.println("-----------------------------------------------------------------");
+            System.out.printf("%-20s %-20s %-10s %-10s\n", "ENAME", "JOB", "SAL", "COMM");
+            System.out.println("-----------------------------------------------------------------");
+
+            // Loop through the result set and display the data
+            while (rs.next()) {
+                // Retrieve by column name
+                String eName = rs.getString("ename");
+                String job = rs.getString("job");
+                int sal = rs.getInt("sal");
+                String comm = rs.getString("comm"); // Use getString to handle potential NULL values
+
+                // Display values
+                System.out.printf("%-20s %-20s %-10d %-10s\n", eName, job, sal, comm);
+            }
+            System.out.println("-----------------------------------------------------------------");
+
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            System.err.println("A database error occurred: " + se.getMessage());
+            se.printStackTrace();
+        } finally {
+            // Close resources in a finally block
+            try {
+                if (rs != null) rs.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+}

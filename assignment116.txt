@@ -1,0 +1,30 @@
+public class PriorityThread extends Thread {
+    
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Thread name: " + Thread.currentThread().getName() + ", Priority: " + Thread.currentThread().getPriority());
+        }
+    }
+}
+public class assignment116 {
+    public static void main(String[] args) {
+
+        Thread maxPriorityThread = new PriorityThread();
+        maxPriorityThread.setName("MaxPriorityThread");
+        maxPriorityThread.setPriority(Thread.MAX_PRIORITY);
+
+        Thread minPriorityThread = new PriorityThread();
+        minPriorityThread.setName("MinPriorityThread");
+        minPriorityThread.setPriority(Thread.MIN_PRIORITY);
+
+        Thread normPriorityThread = new PriorityThread();
+        normPriorityThread.setName("NormPriorityThread");
+        normPriorityThread.setPriority(Thread.NORM_PRIORITY);
+
+
+        System.out.println("Starting threads...");
+        minPriorityThread.start();
+        normPriorityThread.start();
+        maxPriorityThread.start();
+    }
+}

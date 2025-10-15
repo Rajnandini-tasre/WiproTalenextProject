@@ -1,0 +1,206 @@
+CREATE TABLE student (
+    rollno NUMBER(10) PRIMARY KEY,
+    name VARCHAR2(100),
+    std VARCHAR2(10),
+    dob DATE,
+    fee NUMBER(10, 2)
+);
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.sql.*;
+
+public class DAOClass {
+    // JDBC URL for Oracle database
+    static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:ORCL";
+
+    // Database credentials
+    static final String USER = "hr";
+    static final String PASS = "hr";
+
+    private Connection connection = null;
+
+    public DAOClass() throws SQLException {
+        try {
+            // Load the Oracle JDBC driver. This is optional for JDBC 4.0+.
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            if (connection != null) {
+                System.out.println("Connection to database established.");
+            }
+        } catch (ClassNotFoundException e) {
+            System.err.println("Oracle JDBC Driver not found.");
+            throw new SQLException("Oracle JDBC Driver not found.", e);
+        }
+    }
+    
+    public void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+                System.out.println("Connection closed.");
+            } catch (SQLException e) {
+                System.err.println("Error closing connection: " + e.getMessage());
+            }
+        }
+    }
+
+    // Method to insert a new student record
+    public void insert(int rollno, String name, String std, String dob, double fee) throws SQLException {
+        String sql = "INSERT INTO student (rollno, name, std, dob, fee) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, rollno);
+            pstmt.setString(2, name);
+            pstmt.setString(3, std);
+            pstmt.setString(4, dob);
+            pstmt.setDouble(5, fee);
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                System.out.println("Record inserted successfully.");
+            } else {
+                System.out.println("Failed to insert record.");
+            }
+        }
+    }
+
+    // Method to delete a student record
+    public void delete(int rollno) throws SQLException {
+        String sql = "DELETE FROM student WHERE rollno = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, rollno);
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                System.out.println("Record with rollno " + rollno + " deleted successfully.");
+            } else {
+                System.out.println("No record found with rollno " + rollno + ".");
+            }
+        }
+    }
+
+    // Method to modify a student's fee
+    public void modify(int rollno, double newFee) throws SQLException {
+        String sql = "UPDATE student SET fee = ? WHERE rollno = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setDouble(1, newFee);
+            pstmt.setInt(2, rollno);
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                System.out.println("Fee for rollno " + rollno + " modified successfully.");
+            } else {
+                System.out.println("No record found with rollno " + rollno + ".");
+            }
+        }
+    }
+
+    // Method to display one or all student records
+    public void display(Integer rollno) throws SQLException {
+        String sql;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            if (rollno != null) {
+                sql = "SELECT rollno, name, std, dob, fee FROM student WHERE rollno = ?";
+                pstmt = connection.prepareStatement(sql);
+                pstmt.setInt(1, rollno);
+                rs = pstmt.executeQuery();
+            } else {
+                sql = "SELECT rollno, name, std, dob, fee FROM student";
+                pstmt = connection.prepareStatement(sql);
+                rs = pstmt.executeQuery();
+            }
+
+            System.out.println("\n--- Student Records ---");
+            System.out.printf("%-10s %-20s %-10s %-15s %-10s\n", "Roll No", "Name", "Std", "DOB", "Fee");
+            System.out.println("-----------------------------------------------------------------");
+            
+            if (!rs.isBeforeFirst()) {
+                System.out.println("No records found.");
+            }
+
+            while (rs.next()) {
+                int r_rollno = rs.getInt("rollno");
+                String r_name = rs.getString("name");
+                String r_std = rs.getString("std");
+                String r_dob = rs.getString("dob");
+                double r_fee = rs.getDouble("fee");
+                System.out.printf("%-10d %-20s %-10s %-15s %-10.2f\n", r_rollno, r_name, r_std, r_dob, r_fee);
+            }
+            System.out.println("-----------------------------------------------------------------");
+        } finally {
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+        }
+    }
+}
+import java.sql.SQLException;
+
+public class assignment148 {
+
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Usage: java JDBCCalls <option> [arguments...]");
+            System.out.println("Options:");
+            System.out.println("1 <rollno> <name> <std> <dob> <fee>   - Insert a record");
+            System.out.println("2 <rollno>                          - Delete a record");
+            System.out.println("3 <rollno> <new_fee>                - Modify a record");
+            System.out.println("4 [rollno]                          - Display records");
+            return;
+        }
+
+        DAOClass dao = null;
+        try {
+            dao = new DAOClass();
+            int option = Integer.parseInt(args[0]);
+
+            switch (option) {
+                case 1:
+                    if (args.length == 6) {
+                        int rollno = Integer.parseInt(args[1]);
+                        String name = args[2];
+                        String std = args[3];
+                        String dob = args[4];
+                        double fee = Double.parseDouble(args[5]);
+                        dao.insert(rollno, name, std, dob, fee);
+                    } else {
+                        System.out.println("Invalid arguments for insert operation.");
+                    }
+                    break;
+                case 2:
+                    if (args.length == 2) {
+                        int rollno = Integer.parseInt(args[1]);
+                        dao.delete(rollno);
+                    } else {
+                        System.out.println("Invalid arguments for delete operation.");
+                    }
+                    break;
+                case 3:
+                    if (args.length == 3) {
+                        int rollno = Integer.parseInt(args[1]);
+                        double newFee = Double.parseDouble(args[2]);
+                        dao.modify(rollno, newFee);
+                    } else {
+                        System.out.println("Invalid arguments for modify operation.");
+                    }
+                    break;
+                case 4:
+                    if (args.length == 2) {
+                        int rollno = Integer.parseInt(args[1]);
+                        dao.display(rollno);
+                    } else if (args.length == 1) {
+                        dao.display(null);
+                    } else {
+                        System.out.println("Invalid arguments for display operation.");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid option. Please use 1, 2, 3, or 4.");
+            }
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid number format in arguments: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Database error: " + e.getMessage());
+        } finally {
+            if (dao != null) {
+                dao.closeConnection();
+            }
+        }
+    }
+}

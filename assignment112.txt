@@ -1,0 +1,30 @@
+public class assignment112 {
+
+    public static void main(String[] args) {
+
+        Thread scoobyThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // The task for the thread
+                System.out.println("Executing thread: " + Thread.currentThread().getName());
+            }
+        });
+        scoobyThread.setName("Scooby");
+
+
+        Thread shaggyThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                System.out.println("Executing thread: " + Thread.currentThread().getName());
+            }
+        });
+        shaggyThread.setName("Shaggy");
+
+        scoobyThread.start();
+        shaggyThread.start();
+
+        System.out.println("Thread 1 name: " + scoobyThread.getName());
+        System.out.println("Thread 2 name: " + shaggyThread.getName());
+    }
+}

@@ -1,0 +1,77 @@
+CREATE TABLE student (
+    rollno NUMBER(4) PRIMARY KEY,
+    studentname VARCHAR2(20) NOT NULL,
+    standard VARCHAR2(2) NOT NULL,
+    date_of_birth DATE,
+    fees NUMBER(9, 2)
+);
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class assignment149 {
+    // JDBC URL for Oracle database
+    static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:ORCL";
+
+    // Database credentials
+    static final String USER = "hr";
+    static final String PASS = "hr";
+
+    public static void main(String[] args) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            System.out.println("Connecting to database...");
+            // Establish a connection to the database
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connection established successfully.");
+
+            // SQL statement to insert a new record into the student table
+            String sql = "INSERT INTO student (rollno, studentname, standard, date_of_birth, fees) VALUES (?, ?, ?, ?, ?)";
+            pstmt = conn.prepareStatement(sql);
+
+            // Set the values for the new student record
+            int rollno = 1001;
+            String studentName = "STEVEN KING";
+            String standard = "X";
+            String dob = "1999-01-15"; // Date should be in 'YYYY-MM-DD' format
+            double fees = 15000.50;
+
+            // Bind the values to the prepared statement
+            pstmt.setInt(1, rollno);
+            pstmt.setString(2, studentName);
+            pstmt.setString(3, standard);
+            pstmt.setDate(4, java.sql.Date.valueOf(dob));
+            pstmt.setDouble(5, fees);
+
+            System.out.println("Inserting record...");
+            int rowsAffected = pstmt.executeUpdate();
+            
+            if (rowsAffected > 0) {
+                System.out.println("Record inserted successfully.");
+            } else {
+                System.out.println("Failed to insert record.");
+            }
+
+        } catch (SQLException se) {
+            // Handle errors for JDBC
+            System.err.println("A database error occurred: " + se.getMessage());
+        } finally {
+            // Close resources in a finally block to ensure they are always closed
+            try {
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+}

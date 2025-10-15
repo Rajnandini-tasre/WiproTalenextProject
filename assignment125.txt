@@ -1,0 +1,3 @@
+SELECT e.last_name, j.job_title
+FROM employees e, jobs j
+WHERE e.manager_id IS NULL AND e.job_id = j.job_id;

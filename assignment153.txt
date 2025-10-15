@@ -1,0 +1,118 @@
+
+CREATE OR REPLACE PROCEDURE calculate_net_salary (
+    p_empno     IN  NUMBER,
+    p_netsalary OUT NUMBER
+)
+AS
+    v_sal           NUMBER;
+    v_comm          NUMBER;
+    v_gross_salary  NUMBER;
+    v_it            NUMBER;
+BEGIN
+    -- Retrieve salary and commission for the given employee
+    SELECT sal, comm
+    INTO v_sal, v_comm
+    FROM emp
+    WHERE empno = p_empno;
+
+    -- Calculate gross salary. Handle NULL commission.
+    v_gross_salary := v_sal + NVL(v_comm, 0);
+
+    -- Calculate IT based on commission value
+    IF v_comm IS NULL THEN
+        v_it := v_gross_salary * 0.10; -- 10%
+    ELSIF v_comm < 500 THEN
+        v_it := v_gross_salary * 0.15; -- 15%
+    ELSE
+        v_it := v_gross_salary * 0.20; -- 20%
+    END IF;
+
+    -- Calculate net salary
+    p_netsalary := v_gross_salary - v_it;
+END;
+/
+
+-- Verify the procedure was created
+SHOW ERRORS;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import oracle.jdbc.OracleTypes;
+
+public class assignment153 {
+    // JDBC URL for Oracle database
+    static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:ORCL";
+
+    // Database credentials
+    static final String USER = "hr";
+    static final String PASS = "hr";
+
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        CallableStatement cstmt = null;
+
+        try {
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connection established successfully.");
+
+            // Create a statement to retrieve employee details
+            stmt = conn.createStatement();
+            String sql = "SELECT empno, ename FROM emp";
+            rs = stmt.executeQuery(sql);
+
+            System.out.println("\n--- Employee Net Salaries ---");
+            System.out.printf("%-10s %-20s %-15s\n", "EMPNO", "ENAME", "NET SALARY");
+            System.out.println("-------------------------------------------------");
+
+            // Loop through the result set of all employees
+            while (rs.next()) {
+                int empno = rs.getInt("empno");
+                String ename = rs.getString("ename");
+
+                // Prepare a callable statement to invoke the stored procedure
+                cstmt = conn.prepareCall("{call calculate_net_salary(?, ?)}");
+
+                // Set the input parameter (empno)
+                cstmt.setInt(1, empno);
+
+                // Register the output parameter (p_netsalary)
+                cstmt.registerOutParameter(2, OracleTypes.NUMBER);
+
+                // Execute the stored procedure
+                cstmt.execute();
+
+                // Retrieve the output parameter value
+                double netSalary = cstmt.getDouble(2);
+
+                // Display the results
+                System.out.printf("%-10d %-20s %-15.2f\n", empno, ename, netSalary);
+            }
+            System.out.println("-------------------------------------------------");
+
+        } catch (SQLException se) {
+            System.err.println("A database error occurred: " + se.getMessage());
+            se.printStackTrace();
+        } finally {
+            // Close all resources in a finally block
+            try {
+                if (cstmt != null) cstmt.close();
+            } catch (SQLException se) { se.printStackTrace(); }
+            try {
+                if (rs != null) rs.close();
+            } catch (SQLException se) { se.printStackTrace(); }
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) { se.printStackTrace(); }
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) { se.printStackTrace(); }
+        }
+    }
+}

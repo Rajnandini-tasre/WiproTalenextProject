@@ -1,0 +1,136 @@
+-- Create the Student table
+CREATE TABLE Student (
+    rollno NUMBER(10) PRIMARY KEY,
+    StudentName VARCHAR2(100),
+    Standard VARCHAR2(10)
+);
+
+-- Create the StudentLog table to store deleted records
+CREATE TABLE StudentLog (
+    Rollno NUMBER(10),
+    StudentName VARCHAR2(100),
+    Standard VARCHAR2(10),
+    Leaving_date DATE
+);
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class assignment150 {
+
+    // JDBC URL for Oracle database
+    static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:ORCL";
+
+    // Database credentials
+    static final String USER = "hr";
+    static final String PASS = "hr";
+
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Usage: java assignment150 <rollno>");
+            return;
+        }
+
+        Connection conn = null;
+        PreparedStatement selectPstmt = null;
+        PreparedStatement insertLogPstmt = null;
+        PreparedStatement deletePstmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Parse the roll number from the command-line arguments
+            int rollnoToDelete = Integer.parseInt(args[0]);
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connection established successfully.");
+
+            // Set auto-commit to false to manage the transaction manually
+            conn.setAutoCommit(false);
+
+            // Step 1: Retrieve the student details to be logged
+            String selectSql = "SELECT Rollno, StudentName, Standard FROM Student WHERE Rollno = ?";
+            selectPstmt = conn.prepareStatement(selectSql);
+            selectPstmt.setInt(1, rollnoToDelete);
+            rs = selectPstmt.executeQuery();
+
+            if (rs.next()) {
+                int rollno = rs.getInt("Rollno");
+                String studentName = rs.getString("StudentName");
+                String standard = rs.getString("Standard");
+
+                System.out.println("Found student record: " + studentName + ", " + standard);
+
+                // Step 2: Insert the student details into the StudentLog table
+                String insertLogSql = "INSERT INTO StudentLog (Rollno, StudentName, Standard, Leaving_date) VALUES (?, ?, ?, ?)";
+                insertLogPstmt = conn.prepareStatement(insertLogSql);
+                insertLogPstmt.setInt(1, rollno);
+                insertLogPstmt.setString(2, studentName);
+                insertLogPstmt.setString(3, standard);
+
+                // Get the current date and format it for insertion
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String leavingDate = dateFormat.format(new Date());
+                insertLogPstmt.setDate(4, java.sql.Date.valueOf(leavingDate));
+
+                int logRowsAffected = insertLogPstmt.executeUpdate();
+                if (logRowsAffected > 0) {
+                    System.out.println("Student details logged successfully.");
+                } else {
+                    System.out.println("Failed to log student details. Rolling back.");
+                    conn.rollback();
+                    return;
+                }
+
+                // Step 3: Delete the record from the Student table
+                String deleteSql = "DELETE FROM Student WHERE Rollno = ?";
+                deletePstmt = conn.prepareStatement(deleteSql);
+                deletePstmt.setInt(1, rollnoToDelete);
+                int deleteRowsAffected = deletePstmt.executeUpdate();
+                
+                if (deleteRowsAffected > 0) {
+                    System.out.println("Student record deleted successfully.");
+                    // Commit the transaction if both operations succeeded
+                    conn.commit();
+                    System.out.println("Transaction committed.");
+                } else {
+                    System.out.println("Failed to delete student record. Rolling back.");
+                    conn.rollback();
+                }
+
+            } else {
+                System.out.println("No student found with roll number: " + rollnoToDelete);
+            }
+
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid roll number format. Please provide an integer.");
+        } catch (SQLException se) {
+            System.err.println("A database error occurred: " + se.getMessage());
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                    System.out.println("Transaction rolled back due to error.");
+                }
+            } catch (SQLException rollbackEx) {
+                System.err.println("Error during rollback: " + rollbackEx.getMessage());
+            }
+        } finally {
+            // Close all resources in a finally block
+            try {
+                if (rs != null) rs.close();
+            } catch (SQLException se) { se.printStackTrace(); }
+            try {
+                if (selectPstmt != null) selectPstmt.close();
+            } catch (SQLException se) { se.printStackTrace(); }
+            try {
+                if (insertLogPstmt != null) insertLogPstmt.close();
+            } catch (SQLException se) { se.printStackTrace(); }
+            try {
+                if (deletePstmt != null) deletePstmt.close();
+            } catch (SQLException se) { se.printStackTrace(); }
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) { se.printStackTrace(); }
+        }
+    }
+}

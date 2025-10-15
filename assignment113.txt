@@ -1,0 +1,48 @@
+import java.util.Random;
+
+public class ColorDisplayTask implements Runnable {
+
+
+    String[] colours = {"white", "blue", "black", "green", "red", "yellow"};
+
+
+    public void run() {
+        Random random = new Random();
+
+        while (true) {
+
+            int randomIndex = random.nextInt(colours.length);
+            String selectedColour = colours[randomIndex];
+
+
+            System.out.println("Displaying colour: " + selectedColour);
+
+
+            if (selectedColour.equals("red")) {
+                System.out.println("The colour 'red' was selected. Stopping display.");
+                break;
+            }
+
+            try {
+
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Thread was interrupted.");
+                break;
+            }
+        }
+    }
+}
+public class assignment113 {
+    public static void main(String[] args) {
+
+        Runnable colorTask = new ColorDisplayTask();
+
+
+        Thread colourDisplayThread = new Thread(colorTask);
+
+
+        colourDisplayThread.start();
+    }
+}
