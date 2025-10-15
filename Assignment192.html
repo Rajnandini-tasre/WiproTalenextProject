@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Remove Characters from String</title>
+</head>
+<body>
+
+<h2>Remove Specified Number of Characters</h2>
+
+<script>
+function removeCharacters(str, num) {
+    return str.substring(0, str.length - num);
+}
+
+let originalString = "JavaScript";
+let modifiedString = removeCharacters(originalString, 4);
+
+document.write("Original String: " + originalString + "<br>");
+document.write("Modified String (last 4 chars removed): " + modifiedString);
+</script>
+
+</body>
+</html>

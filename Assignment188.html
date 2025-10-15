@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reverse Number</title>
+</head>
+<body>
+
+    <h2>Reverse Number Example</h2>
+
+    <script>
+        
+        function reverseNumber(num) {
+       
+            let reversed = num.toString().split('').reverse().join('');
+                       return parseInt(reversed) * Math.sign(num); 
+        }
+
+ 
+        let number = 12345;
+        let reversedNumber = reverseNumber(number);
+        document.write("Original Number: " + number + "<br>");
+        document.write("Reversed Number: " + reversedNumber + "<br>");
+
+       
+        let negNumber = -9876;
+        document.write("Original Number: " + negNumber + "<br>");
+        document.write("Reversed Number: " + reverseNumber(negNumber) + "<br>");
+    </script>
+
+</body>
+</html>

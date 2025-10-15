@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Border Image Example</title>
+    <style>
+        .bordered-element {
+            border: 15px solid; /* Border width */
+            padding: 20px;      /* Padding inside the element */
+            
+            /* Border image properties */
+            border-image-source: url('border-image.png'); /* Replace with your image URL */
+            border-image-slice: 30;      /* Slice the image for corners */
+            border-image-repeat: stretch; /* Stretch the border image to fit the element */
+        }
+
+        /* Optional styling for content */
+        .bordered-element p {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Div with Image Border</h2>
+
+    <div class="bordered-element">
+        <p>This element has a 15px solid border with an image stretched around it and 20px padding inside.</p>
+    </div>
+
+</body>
+</html>

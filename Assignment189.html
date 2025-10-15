@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Palindrome Check</title>
+</head>
+<body>
+
+<h2>Palindrome Check Example</h2>
+
+<script>
+function isPalindrome(str) {
+    let cleaned = str.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+    let reversed = cleaned.split('').reverse().join('');
+    return cleaned === reversed;
+}
+
+let testString1 = "Madam";
+let testString2 = "Hello";
+
+document.write(testString1 + " is palindrome? " + isPalindrome(testString1) + "<br>");
+document.write(testString2 + " is palindrome? " + isPalindrome(testString2) + "<br>");
+</script>
+
+</body>
+</html>
