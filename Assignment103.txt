@@ -1,0 +1,21 @@
+import java.time.*;
+
+public class Assignment103 {
+    public static void main(String[] args) {
+        LocalDate today = LocalDate.now();
+
+
+        LocalDate nextMonth = today.plusMonths(1).withDayOfMonth(1);
+
+
+        LocalDate firstSunday = nextMonth;
+        while (firstSunday.getDayOfWeek() != DayOfWeek.SUNDAY) {
+            firstSunday = firstSunday.plusDays(1);
+        }
+
+ 
+        LocalDate secondSunday = firstSunday.plusDays(7);
+
+        System.out.println("Next month's 2nd Sunday: " + secondSunday);
+    }
+}

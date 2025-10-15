@@ -1,0 +1,17 @@
+import java.util.*;
+
+public class Assignment99 {
+    public static void main(String[] args) {
+        ArrayList<String> words = new ArrayList<>(Arrays.asList("Java", "Programming", "is", "fun"));
+
+        System.out.println("Original ArrayList: " + words);
+
+        for (int i = 0; i < words.size(); i++) {
+            String word = words.get(i);
+            String reversed = new StringBuilder(word).reverse().toString();
+            words.set(i, reversed); // update the same list
+        }
+
+        System.out.println("ArrayList after reversing each word: " + words);
+    }
+}
