@@ -1,0 +1,62 @@
+public class Fruit {
+    String name;
+    String taste;
+    String size;
+
+
+    public Fruit(String name, String taste, String size) {
+        this.name = name;
+        this.taste = taste;
+        this.size = size;
+    }
+
+
+    public void eat() {
+        System.out.println("The " + name + " is " + taste + " in taste.");
+    }
+}
+public class Apple extends Fruit {
+
+    public Apple(String size) {
+        super("Apple", "sweet", size);
+    }
+
+
+    public void eat() {
+        System.out.println("The apple is sweet in taste.");
+    }
+}
+public class Orange extends Fruit {
+
+    public Orange(String size) {
+        super("Orange", "citrusy", size);
+    }
+
+
+    public void eat() {
+        System.out.println("The orange is citrusy in taste.");
+    }
+}
+public class assignment40 {
+    public static void main(String[] args) {
+
+        Fruit fruit = new Fruit("Generic Fruit", "unknown", "medium");
+        System.out.println("Calling eat() on Fruit object:");
+        fruit.eat();
+
+        System.out.println();
+
+
+        Apple apple = new Apple("medium");
+        System.out.println("Calling eat() on Apple object:");
+        apple.eat();
+        System.out.println("Apple's size: " + apple.size);
+
+        System.out.println();
+
+        Orange orange = new Orange("small");
+        System.out.println("Calling eat() on Orange object:");
+        orange.eat();
+        System.out.println("Orange's size: " + orange.size);
+    }
+}

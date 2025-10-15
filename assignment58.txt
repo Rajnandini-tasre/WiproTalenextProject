@@ -1,0 +1,96 @@
+package com.automobile;
+
+public abstract class Vehicle {
+    public abstract String getModelName();
+    public abstract String getRegistrationNumber();
+    public abstract String getOwnerName();
+}
+package com.automobile.fourwheeler;
+
+import com.automobile.Vehicle;
+
+public class Logan extends Vehicle {
+   
+    public String getModelName() {
+        return "Logan";
+    }
+
+
+    public String getRegistrationNumber() {
+        return "MH12AB1234";
+    }
+
+
+    public String getOwnerName() {
+        return "John Doe";
+    }
+
+    public int speed() {
+        return 80; // Returns the current speed of the vehicle.
+    }
+
+    public int gps() {
+      
+        System.out.println("GPS device is controlled.");
+        return 0;
+    }
+}
+package com.automobile.fourwheeler;
+
+import com.automobile.Vehicle;
+
+public class Ford extends Vehicle {
+
+    public String getModelName() {
+        return "Ford";
+    }
+
+        public String getRegistrationNumber() {
+        return "MH12CD5678";
+    }
+
+   
+    public String getOwnerName() {
+        return "Jane Smith";
+    }
+
+    public int speed() {
+        return 95; // Returns the current speed of the vehicle.
+    }
+
+    public int tempControl() {
+        // Provides facility to control the air conditioning device.
+        System.out.println("Air conditioning device is controlled.");
+        return 0;
+    }
+}
+import com.automobile.fourwheeler.Logan;
+import com.automobile.fourwheeler.Ford;
+
+public class assignment58 {
+    public static void main(String[] args) {
+        
+        Logan logan = new Logan();
+
+       
+        System.out.println("--- Logan Vehicle Details ---");
+        System.out.println("Model Name: " + logan.getModelName());
+        System.out.println("Registration Number: " + logan.getRegistrationNumber());
+        System.out.println("Owner Name: " + logan.getOwnerName());
+        System.out.println("Current Speed: " + logan.speed() + " km/h");
+        logan.gps();
+
+        System.out.println("\n-------------------------------\n");
+
+   
+        Ford ford = new Ford();
+
+       
+        System.out.println("--- Ford Vehicle Details ---");
+        System.out.println("Model Name: " + ford.getModelName());
+        System.out.println("Registration Number: " + ford.getRegistrationNumber());
+        System.out.println("Owner Name: " + ford.getOwnerName());
+        System.out.println("Current Speed: " + ford.speed() + " km/h");
+        ford.tempControl();
+    }
+}

@@ -1,0 +1,38 @@
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class assignment62 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.println("Enter the number of elements in the array");
+            int arraySize = scanner.nextInt();
+            int[] array = new int[arraySize];
+
+            System.out.println("Enter the elements in the array");
+            for (int i = 0; i < arraySize; i++) {
+                array[i] = scanner.nextInt();
+            }
+
+            System.out.println("Enter the index of the array element you want to access");
+            int index = scanner.nextInt();
+
+            // Try to access the element at the specified index
+            int element = array[index];
+            System.out.println("The array element at index " + index + " = " + element);
+            System.out.println("The array element successfully accessed");
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Handle the case where the index is out of the array's bounds
+            System.err.println("java.lang.ArrayIndexOutOfBoundsException");
+        } catch (InputMismatchException | NumberFormatException e) {
+            // Handle the case where the input is not a valid integer
+            System.err.println("java.lang.NumberFormatException");
+        } finally {
+            scanner.close();
+        }
+    }
+}

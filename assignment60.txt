@@ -1,0 +1,26 @@
+public interface Vehicle {
+    default void message() {
+        System.out.println("Inside Vehicle");
+    }
+}
+public interface FourWheeler {
+    default void message() {
+        System.out.println("Inside FourWheeler");
+    }
+}
+public class Car implements Vehicle, FourWheeler {
+   
+    public void message() {
+
+        Vehicle.super.message();
+    }
+}
+public class assignment60 {
+    public static void main(String[] args) {
+
+        Car myCar = new Car();
+
+
+        myCar.message();
+    }
+}

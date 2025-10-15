@@ -1,0 +1,42 @@
+public class InvalidAgeException extends Exception {
+    public InvalidAgeException(String message) {
+        super(message);
+    }
+}
+public class assignment66 {
+
+
+    public static void main(String[] args) {
+     
+        if (args.length != 2) {
+            System.out.println("Usage: java assignment66 <name> <age>");
+            System.exit(1);
+        }
+
+        String name = args[0];
+        int age = 0;
+
+        try {
+            // Step 2: Parse the age argument as an integer
+            age = Integer.parseInt(args[1]);
+
+            // Step 3: Validate the age using a custom exception
+            if (age < 18 || age >= 60) {
+                throw new InvalidAgeException("Age is not within the valid range (18 to 59).");
+            }
+
+            // If no exceptions are thrown, display the name and age
+            System.out.println("Name: " + name);
+            System.out.println("Age: " + age);
+            
+        } catch (NumberFormatException e) {
+            // Handle the case where the age is not a valid integer
+            System.err.println("Error: Invalid age format. Please enter a valid integer for age.");
+            System.exit(1);
+        } catch (InvalidAgeException e) {
+            // Handle the custom exception for invalid age
+            System.err.println("Error: " + e.getMessage());
+            System.exit(1);
+        }
+    }
+}

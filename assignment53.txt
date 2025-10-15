@@ -1,0 +1,33 @@
+import java.util.StringJoiner;
+
+public class assignment53 {
+
+    public static void main(String[] args) {
+
+        StringJoiner s1 = new StringJoiner("-");
+        s1.add("NewYork");
+        s1.add("London");
+        s1.add("Paris");
+
+
+        StringJoiner s2 = new StringJoiner("-");
+        s2.add("Tokyo");
+        s2.add("Sydney");
+
+
+        StringJoiner s2MergedWithS1 = new StringJoiner("-");
+        s2MergedWithS1.add(s2.toString());
+        s2MergedWithS1.merge(s1);
+        System.out.println("Output for case i) s1 merged to s2:");
+        System.out.println(s2MergedWithS1);
+
+        System.out.println("--------------------");
+
+
+        StringJoiner s1MergedWithS2 = new StringJoiner("-");
+        s1MergedWithS2.add(s1.toString());
+        s1MergedWithS2.merge(s2);
+        System.out.println("Output for case ii) s2 merged to s1:");
+        System.out.println(s1MergedWithS2);
+    }
+}

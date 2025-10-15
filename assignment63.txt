@@ -1,0 +1,67 @@
+public class NegativeValueException extends Exception {
+    public NegativeValueException(String message) {
+        super(message);
+    }
+}
+public class ValueOutOfRangeException extends Exception {
+    public ValueOutOfRangeException(String message) {
+        super(message);
+    }
+}
+import java.util.Scanner;
+
+public class assignment63 {
+
+
+    public static int validateMark(int mark) throws NegativeValueException, ValueOutOfRangeException {
+        if (mark < 0) {
+            throw new NegativeValueException("Mark cannot be a negative value.");
+        }
+        if (mark > 100) {
+            throw new ValueOutOfRangeException("Mark cannot be greater than 100.");
+        }
+        return mark;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        final int NUM_STUDENTS = 2;
+        final int NUM_SUBJECTS = 3;
+
+        for (int i = 0; i < NUM_STUDENTS; i++) {
+            System.out.println("Enter details for student " + (i + 1));
+            System.out.print("Enter student name: ");
+            String studentName = scanner.nextLine();
+
+            int totalMarks = 0;
+            boolean validInput = false;
+
+            while (!validInput) {
+                try {
+                    totalMarks = 0; // Reset total marks for retrying
+                    System.out.println("Enter marks for " + studentName + " in 3 subjects:");
+                    for (int j = 0; j < NUM_SUBJECTS; j++) {
+                        System.out.print("Subject " + (j + 1) + ": ");
+                        String input = scanner.nextLine();
+                        int mark = Integer.parseInt(input);
+
+                        // Validate the mark using the custom exception classes
+                        mark = validateMark(mark);
+                        totalMarks += mark;
+                    }
+                    validInput = true; // All inputs were valid, exit loop
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input: Please enter only integer values for marks.");
+                                   } catch (NegativeValueException | ValueOutOfRangeException e) {
+                    System.out.println("Error: " + e.getMessage());
+                                   }
+            }
+            
+            // Calculate and display the average marks
+            double averageMarks = (double) totalMarks / NUM_SUBJECTS;
+            System.out.println("\n" + studentName + "'s Average Marks: " + String.format("%.2f", averageMarks));
+            System.out.println("------------------------------------");
+        }
+        scanner.close();
+    }
+}

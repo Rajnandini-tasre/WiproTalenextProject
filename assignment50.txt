@@ -1,0 +1,41 @@
+import java.lang.StringBuilder;
+
+public class assignment50 {
+
+       public static String interleaveStrings(String a, String b) {
+        StringBuilder result = new StringBuilder();
+        int aLength = a.length();
+        int bLength = b.length();
+        int minLength = Math.min(aLength, bLength);
+
+   
+        for (int i = 0; i < minLength; i++) {
+            result.append(a.charAt(i));
+            result.append(b.charAt(i));
+        }
+
+                if (aLength > bLength) {
+            result.append(a.substring(minLength));
+        } else if (bLength > aLength) {
+            result.append(b.substring(minLength));
+        }
+
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+     
+        String input1 = "Hello";
+        String input2 = "World";
+        System.out.println("i/p: " + input1 + ", " + input2);
+        System.out.println("o/p: " + interleaveStrings(input1, input2));
+        
+        System.out.println("--------------------");
+
+      
+        String input3 = "abcde";
+        String input4 = "fgh";
+        System.out.println("i/p: " + input3 + ", " + input4);
+        System.out.println("o/p: " + interleaveStrings(input3, input4));
+    }
+}

@@ -1,0 +1,36 @@
+public class assignment43 {
+
+
+    public static String concatenateStrings(String str1, String str2) {
+        
+        String lowerStr1 = str1.toLowerCase();
+        String lowerStr2 = str2.toLowerCase();
+
+
+        if (lowerStr1.charAt(lowerStr1.length() - 1) == lowerStr2.charAt(0)) {
+            // If they are the same, omit the first character of the second string.
+            return lowerStr1 + lowerStr2.substring(1);
+        } else {
+
+            return lowerStr1 + " " + lowerStr2;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        String s1 = "Sachin";
+        String s2 = "Tendulkar";
+        String result1 = concatenateStrings(s1, s2);
+        System.out.println("Input: " + s1 + ", " + s2);
+        System.out.println("Output: " + result1);
+
+        System.out.println("--------------------");
+
+
+        String s3 = "Mark";
+        String s4 = "kate";
+        String result2 = concatenateStrings(s3, s4);
+        System.out.println("Input: " + s3 + ", " + s4);
+        System.out.println("Output: " + result2);
+    }
+}

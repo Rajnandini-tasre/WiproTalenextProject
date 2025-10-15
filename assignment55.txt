@@ -1,0 +1,33 @@
+package testpackage;
+
+public class Foundation {
+    private int var1 = 1;
+    int var2 = 2; // Default access modifier
+    protected int var3 = 3;
+    public int var4 = 4;
+}
+import testpackage.Foundation;
+
+public class assignment55 {
+    public static void main(String[] args) {
+
+        Foundation foundation = new Foundation();
+
+        System.out.println("Accessing variables of the Foundation class from a different package:");
+        
+        // Attempt to access var1 (private)
+        // System.out.println("var1 (private): " + foundation.var1); // This will cause a compilation error.
+        System.out.println("var1 (private): Not accessible from outside the class.");
+        
+        // Attempt to access var2 (default/package-private)
+        // System.out.println("var2 (default): " + foundation.var2); // This will cause a compilation error.
+        System.out.println("var2 (default): Not accessible from outside the package.");
+
+        // Attempt to access var3 (protected)
+        // System.out.println("var3 (protected): " + foundation.var3); // This will cause a compilation error.
+        System.out.println("var3 (protected): Not accessible from a non-subclass in a different package.");
+
+        // Attempt to access var4 (public)
+        System.out.println("var4 (public): " + foundation.var4); // This is accessible.
+    }
+}

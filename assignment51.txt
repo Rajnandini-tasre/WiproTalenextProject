@@ -1,0 +1,35 @@
+import java.lang.StringBuilder;
+
+public class assignment51 {
+
+
+    public static String repeatLastNChars(String str, int n) {
+   
+        if (n <= 0 || str.length() < n) {
+            return "";
+        }
+
+
+        String lastNChars = str.substring(str.length() - n);
+
+  
+        StringBuilder result = new StringBuilder();
+
+
+        for (int i = 0; i < n; i++) {
+            result.append(lastNChars);
+        }
+
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+     
+        String inputStr = "Wipro";
+        int n = 3;
+        String output = repeatLastNChars(inputStr, n);
+
+        System.out.println("i/p: " + inputStr + ", " + n);
+        System.out.println("o/p: " + output);
+    }
+}

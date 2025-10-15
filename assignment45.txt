@@ -1,0 +1,32 @@
+public class assignment45 {
+
+
+    public static String getFirstHalf(String str) {
+        if (str == null) {
+            return null;
+        }
+
+
+        if (str.length() % 2 == 0) {
+
+            return str.substring(0, str.length() / 2);
+        } else {
+            // If odd, return null
+            return null;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        String input1 = "TomCat";
+        System.out.println("i/p: " + input1);
+        System.out.println("o/p: " + getFirstHalf(input1));
+
+        System.out.println("--------------------");
+
+
+        String input2 = "Apron";
+        System.out.println("i/p: " + input2);
+        System.out.println("o/p: " + getFirstHalf(input2));
+    }
+}

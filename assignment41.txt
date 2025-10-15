@@ -1,0 +1,60 @@
+public abstract class Shape {
+    public abstract void draw();
+    public abstract void erase();
+}
+public class Circle extends Shape {
+    
+    public void draw() {
+        System.out.println("Drawing Circle");
+    }
+
+    
+    public void erase() {
+        System.out.println("Erasing Circle");
+    }
+}
+public class Triangle extends Shape {
+    
+    public void draw() {
+        System.out.println("Drawing Triangle");
+    }
+
+    
+    public void erase() {
+        System.out.println("Erasing Triangle");
+    }
+}
+public class Square extends Shape {
+    
+    public void draw() {
+        System.out.println("Drawing Square");
+    }
+
+    
+    public void erase() {
+        System.out.println("Erasing Square");
+    }
+}
+public class assignment41 {
+    public static void main(String[] args) {
+
+        Shape c = new Circle();
+        Shape t = new Triangle();
+        Shape s = new Square();
+
+
+        System.out.println("Calling draw() and erase() on Circle object:");
+        c.draw();
+        c.erase();
+        System.out.println();
+
+        System.out.println("Calling draw() and erase() on Triangle object:");
+        t.draw();
+        t.erase();
+        System.out.println();
+
+        System.out.println("Calling draw() and erase() on Square object:");
+        s.draw();
+        s.erase();
+    }
+}

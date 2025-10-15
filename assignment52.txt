@@ -1,0 +1,27 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringJoiner;
+
+public class assignment52 {
+
+    public static void main(String[] args) {
+
+        List<String> names = new ArrayList<>();
+        names.add("Alice");
+        names.add("Bob");
+        names.add("Charlie");
+        names.add("David");
+
+
+        StringJoiner sj = new StringJoiner(", ", "{", "}");
+
+
+        for (String name : names) {
+            sj.add(name);
+        }
+
+
+        System.out.println("Original names: " + names);
+        System.out.println("Formatted string: " + sj.toString());
+    }
+}

@@ -1,0 +1,18 @@
+
+interface Test {
+    int myFunction(int param1, int param2, int param3);
+}
+public class assignment61 {
+    public static void main(String[] args) {
+             Test t1 = (p1, p2, p3) -> p1 + p2 + p3;
+        
+              Test t2 = (p1, p2, p3) -> p1 * p2 * p3;
+
+ 
+        int result1 = t1.myFunction(10, 20, 30);
+        System.out.println("Result from t1 (addition): " + result1);
+
+             int result2 = t2.myFunction(5, 5, 2);
+        System.out.println("Result from t2 (multiplication): " + result2);
+    }
+}

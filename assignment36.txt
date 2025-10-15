@@ -1,0 +1,29 @@
+import java.lang.Math;
+
+class Calculator {
+   
+    public static double powerInt(int num1, int num2) {
+        return Math.pow(num1, num2);
+    }
+
+
+    public static double powerDouble(double num1, int num2) {
+        return Math.pow(num1, num2);
+    }
+}
+
+public class assignment36 {
+    public static void main(String[] args) {
+
+        int intBase = 2;
+        int intExponent = 5;
+        double intResult = Calculator.powerInt(intBase, intExponent);
+        System.out.println(intBase + " to the power of " + intExponent + " (using powerInt) is: " + intResult);
+
+
+        double doubleBase = 3.5;
+        int doubleExponent = 3;
+        double doubleResult = Calculator.powerDouble(doubleBase, doubleExponent);
+        System.out.println(doubleBase + " to the power of " + doubleExponent + " (using powerDouble) is: " + doubleResult);
+    }
+}

@@ -1,0 +1,51 @@
+package music;
+
+public interface Playable {
+    void play();
+}
+package music.string;
+
+import music.Playable;
+
+public class Veena implements Playable {
+
+    public void play() {
+        System.out.println("The Veena is playing.");
+    }
+}
+package music.wind;
+
+import music.Playable;
+
+public class Saxophone implements Playable {
+   
+    public void play() {
+        System.out.println("The Saxophone is playing.");
+    }
+}
+package live;
+
+import music.Playable;
+import music.string.Veena;
+import music.wind.Saxophone;
+
+public class assignment59 {
+    public static void main(String[] args) {
+
+        Veena veena = new Veena();
+        veena.play();
+
+
+        Saxophone saxophone = new Saxophone();
+        saxophone.play();
+
+        System.out.println("\n--- Demonstrating Polymorphism ---\n");
+
+
+        Playable playableVeena = new Veena();
+        playableVeena.play();
+
+        Playable playableSaxophone = new Saxophone();
+        playableSaxophone.play();
+    }
+}

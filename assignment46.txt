@@ -1,0 +1,26 @@
+public class assignment46 {
+
+
+    public static String removeFirstAndLast(String str) {
+
+        if (str == null || str.length() < 2) {
+            return "";
+        }
+
+        return str.substring(1, str.length() - 1);
+    }
+
+    public static void main(String[] args) {
+
+        String input1 = "Suman";
+        System.out.println("Input: " + input1);
+        System.out.println("Output: " + removeFirstAndLast(input1));
+
+        System.out.println("--------------------");
+
+
+        String input2 = "a";
+        System.out.println("Input: " + input2);
+        System.out.println("Output: " + removeFirstAndLast(input2));
+    }
+}

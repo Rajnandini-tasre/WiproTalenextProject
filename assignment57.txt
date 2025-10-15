@@ -1,0 +1,90 @@
+package com.automobile;
+
+public abstract class Vehicle {
+    public abstract String getModelName();
+    public abstract String getRegistrationNumber();
+    public abstract String getOwnerName();
+}
+package com.automobile.twowheeler;
+
+import com.automobile.Vehicle;
+
+public class Hero extends Vehicle {
+  
+    public String getModelName() {
+        return "Hero Splendor";
+    }
+
+     public String getRegistrationNumber() {
+        return "MH12AB1234";
+    }
+
+       public String getOwnerName() {
+        return "John Doe";
+    }
+
+    public int getSpeed() {
+        return 60; // returns the current speed of the vehicle
+    }
+
+    public void radio() {
+        System.out.println("Hero vehicle provides facility to control the radio device.");
+    }
+}
+package com.automobile.twowheeler;
+
+import com.automobile.Vehicle;
+
+public class Honda extends Vehicle {
+  
+    public String getModelName() {
+        return "Honda Activa";
+    }
+
+
+    public String getRegistrationNumber() {
+        return "MH12CD5678";
+    }
+
+   
+    public String getOwnerName() {
+        return "Jane Smith";
+    }
+
+    public int getSpeed() {
+        return 70; // Returns the current speed of the vehicle
+    }
+
+    public void cdplayer() {
+        System.out.println("Honda vehicle provides facility to control the cd player device.");
+    }
+}
+import com.automobile.twowheeler.Hero;
+import com.automobile.twowheeler.Honda;
+
+public class assignment57 {
+    public static void main(String[] args) {
+ 
+        Hero hero = new Hero();
+
+        System.out.println("--- Hero Vehicle Details ---");
+        System.out.println("Model Name: " + hero.getModelName());
+        System.out.println("Registration Number: " + hero.getRegistrationNumber());
+        System.out.println("Owner Name: " + hero.getOwnerName());
+        System.out.println("Current Speed: " + hero.getSpeed() + " km/h");
+        hero.radio();
+
+        System.out.println("\n-------------------------------\n");
+
+        
+        Honda honda = new Honda();
+
+  
+        System.out.println("--- Honda Vehicle Details ---");
+        System.out.println("Model Name: " + honda.getModelName());
+        System.out.println("Registration Number: " + honda.getRegistrationNumber());
+        System.out.println("Owner Name: " + honda.getOwnerName());
+        System.out.println("Current Speed: " + honda.getSpeed() + " km/h");
+        honda.cdplayer();
+    }
+}

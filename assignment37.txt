@@ -1,0 +1,97 @@
+public class Author {
+    private String name;
+    private String email;
+    private char gender;
+
+    public Author(String name, String email, char gender) {
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+    
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public String toString() {
+        return "Author [name=" + name + ", email=" + email + ", gender=" + gender + "]";
+    }
+}
+public class Book {
+    private String name;
+    private Author author;
+    private double price;
+    private int qtyInStock;
+
+
+    public Book(String name, Author author, double price, int qtyInStock) {
+        this.name = name;
+        this.author = author;
+        this.price = price;
+        this.qtyInStock = qtyInStock;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getQtyInStock() {
+        return qtyInStock;
+    }
+
+    public void setQtyInStock(int qtyInStock) {
+        this.qtyInStock = qtyInStock;
+    }
+
+
+    public String toString() {
+        return "Book [name=" + name + ", author=" + author + ", price=" + price + ", qtyInStock=" + qtyInStock + "]";
+    }
+}
+public class assignment37 {
+    public static void main(String[] args) {
+        // Create an Author object
+        Author author = new Author("Joshua Bloch", "joshua@example.com", 'm');
+        
+        // Create a Book object using the Author object
+        Book book = new Book("Effective Java", author, 45.50, 100);
+        
+        // Print all details of the book, which also includes the author's details
+        System.out.println(book.toString());
+    }
+}

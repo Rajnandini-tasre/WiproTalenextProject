@@ -1,0 +1,25 @@
+public class assignment47 {
+
+      public static String makeShortLongShort(String a, String b) {
+        if (a.length() < b.length()) {
+            return a + b + a;
+        } else {
+            return b + a + b;
+        }
+    }
+
+    public static void main(String[] args) {
+           String input1 = "hi";
+        String input2 = "hello";
+        System.out.println("Input: \"" + input1 + "\", \"" + input2 + "\"");
+        System.out.println("Output: \"" + makeShortLongShort(input1, input2) + "\"");
+
+        System.out.println("--------------------");
+
+      
+        String input3 = "a";
+        String input4 = "bb";
+        System.out.println("Input: \"" + input3 + "\", \"" + input4 + "\"");
+        System.out.println("Output: \"" + makeShortLongShort(input3, input4) + "\"");
+    }
+}

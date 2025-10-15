@@ -1,0 +1,33 @@
+public class assignment49 {
+
+
+    public static String removeAsteriskAndNeighbors(String str) {
+ 
+        int asteriskIndex = str.indexOf('*');
+
+
+        if (asteriskIndex == -1 || str.length() < 3) {
+            return str;
+        }
+
+
+        String firstPart = str.substring(0, asteriskIndex - 1);
+        String secondPart = str.substring(asteriskIndex + 2);
+
+        return firstPart + secondPart;
+    }
+
+    public static void main(String[] args) {
+
+        String input1 = "ab*cd";
+        System.out.println("Input: " + input1);
+        System.out.println("Output: " + removeAsteriskAndNeighbors(input1));
+
+        System.out.println("--------------------");
+
+
+        String input2 = "a*b*c";
+        System.out.println("Input: " + input2);
+        System.out.println("Output: " + removeAsteriskAndNeighbors(input2));
+    }
+}

@@ -1,0 +1,90 @@
+public class Person {
+    private String name;
+
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public String toString() {
+        return "Person [name=" + name + "]";
+    }
+}
+public class Employee extends Person {
+    private double annualSalary;
+    private int yearStarted;
+    private String nationalInsuranceNumber;
+
+
+    public Employee(String name, double annualSalary, int yearStarted, String nationalInsuranceNumber) {
+        super(name); // Call the constructor of the parent class (Person)
+        this.annualSalary = annualSalary;
+        this.yearStarted = yearStarted;
+        this.nationalInsuranceNumber = nationalInsuranceNumber;
+    }
+
+
+    public double getAnnualSalary() {
+        return annualSalary;
+    }
+
+    public int getYearStarted() {
+        return yearStarted;
+    }
+
+    public String getNationalInsuranceNumber() {
+        return nationalInsuranceNumber;
+    }
+
+
+    public void setAnnualSalary(double annualSalary) {
+        this.annualSalary = annualSalary;
+    }
+
+    public void setYearStarted(int yearStarted) {
+        this.yearStarted = yearStarted;
+    }
+
+    public void setNationalInsuranceNumber(String nationalInsuranceNumber) {
+        this.nationalInsuranceNumber = nationalInsuranceNumber;
+    }
+
+
+    public String toString() {
+        return "Employee [name=" + getName() + ", annualSalary=" + annualSalary + ", yearStarted=" + yearStarted + ", nationalInsuranceNumber=" + nationalInsuranceNumber + "]";
+    }
+}
+public class assignment39 {
+    public static void main(String[] args) {
+
+        Person person = new Person("John Doe");
+        System.out.println("Person details: " + person.toString());
+        System.out.println("Person's name: " + person.getName());
+        person.setName("Jane Doe");
+        System.out.println("Updated person's name: " + person.getName());
+        System.out.println();
+
+
+        Employee employee = new Employee("Alice Smith", 60000.0, 2020, "NI123456C");
+        System.out.println("Employee details: " + employee.toString());
+        System.out.println("Employee's name: " + employee.getName());
+        System.out.println("Employee's annual salary: " + employee.getAnnualSalary());
+        System.out.println("Employee's year started: " + employee.getYearStarted());
+        System.out.println("Employee's national insurance number: " + employee.getNationalInsuranceNumber());
+
+
+        employee.setAnnualSalary(65000.0);
+        System.out.println("Updated annual salary: " + employee.getAnnualSalary());
+    }
+}

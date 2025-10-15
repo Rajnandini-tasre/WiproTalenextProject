@@ -1,0 +1,41 @@
+package com.wipro.automobile.ship;
+
+public class Compartment {
+    private double height;
+    private double width;
+    private double breadth;
+
+
+    public Compartment(double height, double width, double breadth) {
+        this.height = height;
+        this.width = width;
+        this.breadth = breadth;
+    }
+
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getBreadth() {
+        return breadth;
+    }
+}
+import com.wipro.automobile.ship.Compartment;
+
+public class assignment56 {
+    public static void main(String[] args) {
+
+        Compartment shipCompartment = new Compartment(10.5, 5.2, 8.0);
+
+
+        System.out.println("Ship Compartment Details:");
+        System.out.println("Height: " + shipCompartment.getHeight());
+        System.out.println("Width: " + shipCompartment.getWidth());
+        System.out.println("Breadth: " + shipCompartment.getBreadth());
+    }
+}
